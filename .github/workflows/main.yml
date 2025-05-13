@@ -17,6 +17,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Read Port
+      run: cat .env >> $GITHUB_ENV
+
+    - name: Check Port
+      run: echo $PORT
+
     - name: Start containers
       run: docker compose -f "docker-compose.yml" up -d --build
 
@@ -30,7 +36,7 @@ jobs:
       uses: OSGeo/cite-runner@v0.1.1
       with:
         test_suite_identifier: ogcapi-features-1.0
-        test_session_arguments: iut=http://localhost:5000
+        test_session_arguments: iut=http://localhost:$PORT
 
     - name: Stop containers
       if: always()

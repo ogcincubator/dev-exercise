@@ -6,7 +6,7 @@ This proof of concept, shows how GitHub actions can be setup to test a OGC API p
 
 * The goal of this exercise is to publish the [Daily Mean of Water Level or Flow](./data/canada-hydat-daily-mean-02HC003.tinydb) tinyDB DB, stored in the data folder, as a OGC API - Features collection.
 * Developers should achieve this using a [docker compose file](./docker-compose.yml), and a [pygeoapi configuration file](./pygeoapi.config.yml). The server can be instantiated using the latest pygeoapi docker image, pulled from Docker Hub.
-* It is important to run the server on port 5000!
+* Edit [.env](.env) to set the [port where you are running the server on pygeoapi](pygeoapi.config.yml#L4).
 
 ### Developer Workflow
 
