@@ -1,0 +1,255 @@
+server:
+    bind:
+        host: 0.0.0.0
+        port: 5000
+    url: http://localhost:5000/
+    mimetype: application/json; charset=UTF-8
+    encoding: utf-8
+    gzip: false
+    language: en-US
+    cors: true
+    pretty_print: true
+    limits:
+        max_items: 150
+    # templates: /path/to/templates
+    map:
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    ogc_schemas_location: /schemas.opengis.net
+    manager:
+        name: TinyDB
+        connection: /tmp/pygeoapi-process-manager.db
+        output_dir: /tmp/
+
+logging:
+    level: ERROR
+    #logfile: /tmp/pygeoapi.log
+
+metadata:
+    identification:
+        title: Diving into pygeoapi default instance
+        description: pygeoapi provides an API to geospatial data
+        keywords:
+            - geospatial
+            - data
+            - api
+        keywords_type: theme
+        terms_of_service: https://creativecommons.org/licenses/by/4.0/
+        url: https://dive.pygeoapi.io
+    license:
+        name: CC-BY 4.0 license
+        url: https://creativecommons.org/licenses/by/4.0/
+    provider:
+        name: pygeoapi Development Team
+        url: https://pygeoapi.io
+    contact:
+        name: pygeoapi Development Team
+        position: pygeoapi Development Team
+        address: 9450 SW Gemini Dr. #42523
+        city: Beaverton
+        stateorprovince: Oregon
+        postalcode: 97008
+        country: United States of America
+        phone: +xx-xxx-xxx-xxxx
+        fax: +xx-xxx-xxx-xxxx
+        email: pygeoapi@gmail.com
+        url: https://pygeoapi.io
+        hours: 24/7
+        instructions: During hours of service.
+        role: pointOfContact
+
+resources:
+    canada-hydat-daily-mean-02hc003:
+        type: collection
+        title: Daily Mean of Water Level or Flow
+        description: The daily mean is the average of all unit values for a given day.
+        keywords: [Daily, Daily Mean, Water Level, Flow, Discharge]
+        crs:
+            - CRS84
+        links:
+            - type: text/html
+              rel: canonical
+              title: Water Level and Flow - Environment Canada
+              href: https://wateroffice.ec.gc.ca
+              hreflang: en-CA
+            - type: text/html
+              rel: canonical
+              title: Niveau d'eau et débit - Environnement Canada
+              href: https://wateroffice.ec.gc.ca/index_f.html
+              hreflang: fr-CA
+            - type: text/html
+              rel: download
+              title: "National water data archive: HYDAT - Canada.ca"
+              href: https://www.canada.ca/en/environment-climate-change/services/water-overview/quantity/monitoring/survey/data-products-services/national-archive-hydat.html
+              hreflang: en-CA
+            - type: text/html
+              rel: download
+              title: "Archives nationales des données hydrologiques : HYDAT - Canada.ca"
+              href: https://www.canada.ca/fr/environnement-changement-climatique/services/eau-apercu/volume/surveillance/releves/produits-donnees-services/archives-nationales-hydat.html
+              hreflang: fr-CA
+            - type: application/zip
+              rel: download
+              title: download data
+              href: https://collaboration.cmc.ec.gc.ca/cmc/hydrometrics/www
+              hreflang: en-CA
+        extents:
+            spatial:
+                bbox: [-142, 52, -52, 84]
+                crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+            temporal:
+                begin: 1850-01-01T00:00:00Z
+                end: null # or empty
+        providers:
+            - type: feature
+              name: TinyDB
+              data: /data/canada-hydat-daily-mean-02HC003.tinydb
+              id_field: IDENTIFIER
+              time_field: DATE
+              crs:
+                - http://www.opengis.net/def/crs/OGC/1.3/CRS84
+              storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+
+    # obs:
+    #     type: collection
+    #     title: Observations
+    #     description: Observations
+    #     keywords:
+    #         - observations
+    #         - monitoring
+    #     crs:
+    #         - CRS84
+    #     links:
+    #         - type: text/csv
+    #           rel: canonical
+    #           title: data
+    #           href: https://github.com/mapserver/mapserver/blob/branch-7-0/msautotest/wxs/data/obs.csv
+    #           hreflang: en-US
+    #         - type: text/csv
+    #           rel: alternate
+    #           title: data
+    #           href: https://raw.githubusercontent.com/mapserver/mapserver/branch-7-0/msautotest/wxs/data/obs.csv
+    #           hreflang: en-US
+    #     extents:
+    #         spatial:
+    #             bbox: [-180,-90,180,90]
+    #             crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #         temporal:
+    #             begin: 2000-10-30T18:24:39Z
+    #             end: 2007-10-30T08:57:29Z
+    #     providers:
+    #         - type: feature
+    #           name: Parquet
+    #           data:
+    #             source: /data/obs.parquet
+    #           id_field: id
+    #           time_field: datetime
+    #           x_field:
+    #             - minlon
+    #             - maxlon
+    #           y_field:
+    #             - minlat
+    #             - maxlat
+
+
+    # lakes:
+    #     type: collection
+    #     title: Large Lakes
+    #     description: lakes of the world, public domain
+    #     keywords:
+    #         - lakes
+    #     crs:
+    #         - CRS84
+    #     links:
+    #         - type: text/html
+    #           rel: canonical
+    #           title: information
+    #           href: https://www.naturalearthdata.com/
+    #           hreflang: en-US
+    #     extents:
+    #         spatial:
+    #             bbox: [-180,-90,180,90]
+    #             crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #         temporal:
+    #             begin: 1900-10-30T18:24:39Z
+    #             end: 2025-10-30T08:57:29Z
+    #     providers:
+    #         - type: feature
+    #           name: GeoJSON
+    #           data: tests/data/ne_110m_lakes.geojson
+    #           crs:
+    #             - http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #           storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #           id_field: id
+
+    # hyderabad:
+    #     type: collection
+    #     title: Greater Hyderabad Municipal Corporation ward boundaries
+    #     description: The city ward boundaries represent the administrative and electoral boundary areas of the city. It plays a great role in planning of the city, for each council of the municipal corporation.
+    #     keywords:
+    #       - Boundaries
+    #       - Administrative
+    #       - Ward
+    #     crs:
+    #         - CRS84
+    #     links:
+    #         - type: text/html
+    #           rel: canonical
+    #           title: information
+    #           href: https://livingatlas-dcdev.opendata.arcgis.com/datasets/a090c89d52f1498f96a82e97b8bfb83e_0/
+    #           hreflang: en-US
+    #     extents:
+    #         spatial:
+    #             bbox: [78.2379194985166180,17.2908061510471995,78.6217049083810764,17.5618443356918768]
+    #             crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #         temporal:
+    #             begin: 2000-10-30T18:24:39Z
+    #             end: 2007-10-30T08:57:29Z
+    #     providers:
+    #         - type: feature
+    #           crs:
+    #             - http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #           name: GeoJSON
+    #           data: /data/greater_hyderabad_municipal_corporation_ward_Boundaries.geojson
+    #           id_field: objectid
+    #           storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+
+    # hex350_grid_cardio_1920:
+    #     type: collection
+    #     title: Prevalence rates of cardiovascular diseases in London
+    #     description: The mapping results of urban health outcomes (Prevalence rates
+    #         of cardiovascular diseases) in 350m hexagonal grids of Inner London
+    #     keywords:
+    #     - urban health
+    #     - health outcomes
+    #     - physical health
+    #     - urban health mapping
+    #     - inner london
+    #     - ''
+    #     links:
+    #     -   type: text/html
+    #         rel: canonical
+    #         title: metadata
+    #         href: https://emotional.byteroad.net/collections/ec_catalog/items/hex350_grid_cardio_1920
+    #         hreflang: en-US
+    #     extents:
+    #         spatial:
+    #             bbox:
+    #             - -0.260765354541958
+    #             - 51.409628133733456
+    #             - 0.126720196946648
+    #             - 51.58003067802845
+    #             crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
+    #     providers:
+    #     -   type: feature
+    #         name: Parquet
+    #         data:
+    #         source: /data/hex350_grid_cardio_1920.parquet
+    #         id_field: fid
+    #         time_field: time
+    #         x_field:
+    #         - minlon
+    #         - maxlon
+    #         y_field:
+    #         - minlat
+    #         - maxlat
+    #         id_field: fid
