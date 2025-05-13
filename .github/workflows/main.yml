@@ -25,15 +25,9 @@ jobs:
 
     - name: Start containers
       run: docker compose -f "docker-compose.yml" up -d --build
-
-    # - name: Install requirements
-    #   run: pip install pytest requests
-
-    # - name: Run tests
-    #   run: pytest -v --tb=no tests/test-api.py
           
     - name: test ogcapi-features compliance
-      uses: OSGeo/cite-runner@v0.1.1
+      uses: OSGeo/cite-runner@v0.1.1 # TODO: change this later to match the latest release
       with:
         test_suite_identifier: ogcapi-features-1.0
         test_session_arguments: iut=http://localhost:$PORT
